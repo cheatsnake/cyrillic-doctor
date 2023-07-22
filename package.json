@@ -21,7 +21,7 @@
         "url": "https://github.com/cheatsnake/cyrillic-doctor/issues"
     },
     "scripts": {
-        "build": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json && cp package.json dist/package.json && cp README.md dist/README.md",
+        "build": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json && cp package.json dist/package.json && cp README.md dist/README.md && mv dist/_cjs/main.js dist/_cjs/main.cjs && mv dist/_esm/main.js dist/_esm/main.mjs",
         "test": "node --loader tsx --test test/*.test.ts"
     },
     "devDependencies": {
