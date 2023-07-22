@@ -13,26 +13,30 @@ Import package into your project:
 ```js
 // ESM
 import Doctor from "cyrillic-doctor";
+```
 
+```js
 // CommonJS
 const Doctor = require("cyrillic-doctor");
 ```
 
-You can also import only the functions you need:
+Or you can import only the functions you need:
 
 ```js
 // ESM
 import { fixCyrillic } from "cyrillic-doctor";
+```
 
+```js
 // CommonJS
 const { fixCyrillic } = require("cyrillic-doctor");
 ```
 
 ## Documentation
 
-This Library is support working with both hidden Cyrillic letters in Latin texts and hidden Latin letters in Cyrillic texts. Therefore, each function has one of the prefixes **Cyrillic** or **Latin**.
+This library is support working with both hidden Cyrillic letters in Latin texts and hidden Latin letters in Cyrillic texts. Therefore, each function has one of the postfixes: _Cyrillic_ or _Latin_.
 
--   `isHasCyrillic(string): boolean`
+-   **isHasCyrillic**(`string`): `boolean`
 
     Check is string has at least one hidden Cyrillic letter.
 
@@ -42,7 +46,7 @@ This Library is support working with both hidden Cyrillic letters in Latin texts
     Doctor.isHasCyrillic(str); // true
     ```
 
--   `isHasLatin(string): boolean`
+-   **isHasLatin**(`string`): `boolean`
 
     Check is string has at least one hidden Latin letter.
 
@@ -52,7 +56,7 @@ This Library is support working with both hidden Cyrillic letters in Latin texts
     Doctor.isHasCyrillic(str); // true
     ```
 
--   `detectCyrillic(string): {position: number, value: string}[]`
+-   **detectCyrillic**(`string`): `{position: number, value: string}[]`
 
     Detect all positions of hidden Cyrillic letters in the string.
 
@@ -60,16 +64,20 @@ This Library is support working with both hidden Cyrillic letters in Latin texts
     const str = "Неllо, Wоrld!";
 
     Doctor.detectCyrillic(str);
-
-    // [
-    //     { position: 0, value: 'Н' },
-    //     { position: 1, value: 'е' },
-    //     { position: 4, value: 'о' },
-    //     { position: 8, value: 'о' }
-    // ]
     ```
 
--   `detectLatin(string): {position: number, value: string}[]`
+    ```js
+    [
+        { position: 0, value: "Н" },
+        { position: 1, value: "е" },
+        { position: 4, value: "о" },
+        { position: 8, value: "о" },
+    ];
+    ```
+
+    > If there are no hidden letters in the source string, the result will be an empty array.
+
+-   **detectLatin**(`string`): `{position: number, value: string}[]`
 
     Detect all positions of hidden Latin letters in the string.
 
@@ -77,16 +85,18 @@ This Library is support working with both hidden Cyrillic letters in Latin texts
     const str = "Пpивeт, Mиp!";
 
     Doctor.detectLatin(str);
-
-    // [
-    //     { position: 1, value: 'p' },
-    //     { position: 4, value: 'e' },
-    //     { position: 8, value: 'M' },
-    //     { position: 10, value: 'p' }
-    // ]
     ```
 
--   `fixCyrillic(string): string`
+    ```js
+    [
+        { position: 1, value: "p" },
+        { position: 4, value: "e" },
+        { position: 8, value: "M" },
+        { position: 10, value: "p" },
+    ];
+    ```
+
+-   **fixCyrillic**(`string`): `string`
 
     Replace all hidden Cyrillic letters with equivalent Latin letters.
 
@@ -97,7 +107,9 @@ This Library is support working with both hidden Cyrillic letters in Latin texts
     Doctor.isHasCyrillic(fixedStr); // false
     ```
 
--   `fixLatin(string): string`
+    > If there is nothing to fix, the result will return the original string.
+
+-   **fixLatin**(`string`): `string`
 
     Replace all hidden Latin letters with equivalent Cyrillic letters.
 
