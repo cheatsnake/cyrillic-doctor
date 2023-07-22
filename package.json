@@ -29,7 +29,7 @@
         "tsx": "^3.12.7",
         "typescript": "^5.1.6"
     },
-    "types": "./index.d.ts",
+    "types": "./main.d.ts",
     "typesVersions": {
         ">=4.2": {
             "*": [
@@ -38,11 +38,11 @@
         }
     },
     "exports": {
-        "./*": {
+        ".": {
             "types": "./_types/*.d.ts",
-            "require": "./_cjs/*.js",
-            "import": "./_esm/*.js",
-            "default": "./_esm/*.js"
+            "require": "./_cjs/main.cjs",
+            "import": "./_esm/main.mjs",
+            "default": "./_esm/main.mjs"
         }
     }
 }
