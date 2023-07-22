@@ -1,0 +1,48 @@
+{
+    "name": "cyrillic-doctor",
+    "main": "main.js",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "Node.js library for detecting and fixing hidden Cyrillic letters in Latin text or vice versa.",
+    "keywords": [
+        "cyrillic",
+        "clean",
+        "fix",
+        "detect"
+    ],
+    "author": "cheatsnake",
+    "license": "MIT",
+    "homepage": "https://github.com/cheatsnake/cyrillic-doctor#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cheatsnake/cyrillic-doctor.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cheatsnake/cyrillic-doctor/issues"
+    },
+    "scripts": {
+        "build": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json && cp package.json dist/package.json && cp README.md dist/README.md",
+        "test": "node --loader tsx --test test/*.test.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^20.4.3",
+        "tsx": "^3.12.7",
+        "typescript": "^5.1.6"
+    },
+    "types": "./index.d.ts",
+    "typesVersions": {
+        ">=4.2": {
+            "*": [
+                "_types/*"
+            ]
+        }
+    },
+    "exports": {
+        "./*": {
+            "types": "./_types/*.d.ts",
+            "require": "./_cjs/*.js",
+            "import": "./_esm/*.js",
+            "default": "./_esm/*.js"
+        }
+    }
+}
