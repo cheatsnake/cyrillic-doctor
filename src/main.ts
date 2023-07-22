@@ -25,9 +25,6 @@ const latinCyrillicMap: Record<string, string> = Object.fromEntries(
     Object.entries(cyrillicLatinMap).map((a) => a.reverse())
 );
 
-const cyrillicLetters = Object.keys(cyrillicLatinMap);
-const latinLetters = Object.keys(latinCyrillicMap);
-
 interface DetectionResult {
     position: number;
     value: string;
@@ -35,34 +32,28 @@ interface DetectionResult {
 
 //** Check is string has at least one hidden Cyrillic letter */
 export const isHasCyrillic = (str: string): boolean => {
-    return [...str].some((value) => cyrillicLetters.includes(value));
+    return [...str].some((value) => !!cyrillicLatinMap[value]);
 };
 
 //** Check is string has at least one hidden Latin letter */
 export const isHasLatin = (str: string): boolean => {
-    return [...str].some((value) => latinLetters.includes(value));
+    return [...str].some((value) => !!latinCyrillicMap[value]);
 };
 
 //** Detect all positions of hidden Cyrillic letters in the string */
 export const detectCyrillic = (str: string): DetectionResult[] => {
-    const result: DetectionResult[] = [];
-
-    [...str].some((value, position) => {
-        if (cyrillicLetters.includes(value)) result.push({ position, value });
-    });
-
-    return result;
+    return [...str].reduce((result: DetectionResult[], value, position) => {
+        if (cyrillicLatinMap[value]) result.push({ position, value });
+        return result;
+    }, []);
 };
 
 //** Detect all positions of hidden Latin letters in the string */
 export const detectLatin = (str: string): DetectionResult[] => {
-    const result: DetectionResult[] = [];
-
-    [...str].some((value, position) => {
-        if (latinLetters.includes(value)) result.push({ position, value });
-    });
-
-    return result;
+    return [...str].reduce((result: DetectionResult[], value, position) => {
+        if (latinCyrillicMap[value]) result.push({ position, value });
+        return result;
+    }, []);
 };
 
 //** Replace all hidden Cyrillic letters with equivalent Latin letters */
