@@ -32,38 +32,64 @@ interface DetectionResult {
 
 //** Check is string has at least one hidden Cyrillic letter */
 export const isHasCyrillic = (str: string): boolean => {
-    return [...str].some((value) => !!cyrillicLatinMap[value]);
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] in cyrillicLatinMap) return true;
+    }
+
+    return false;
 };
 
 //** Check is string has at least one hidden Latin letter */
 export const isHasLatin = (str: string): boolean => {
-    return [...str].some((value) => !!latinCyrillicMap[value]);
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] in latinCyrillicMap) return true;
+    }
+
+    return false;
 };
 
 //** Detect all positions of hidden Cyrillic letters in the string */
 export const detectCyrillic = (str: string): DetectionResult[] => {
-    return [...str].reduce((result: DetectionResult[], value, position) => {
-        if (cyrillicLatinMap[value]) result.push({ position, value });
-        return result;
-    }, []);
+    const result: DetectionResult[] = [];
+
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] in cyrillicLatinMap) result.push({ position: i, value: str[i] });
+    }
+
+    return result;
 };
 
 //** Detect all positions of hidden Latin letters in the string */
 export const detectLatin = (str: string): DetectionResult[] => {
-    return [...str].reduce((result: DetectionResult[], value, position) => {
-        if (latinCyrillicMap[value]) result.push({ position, value });
-        return result;
-    }, []);
+    const result: DetectionResult[] = [];
+
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] in latinCyrillicMap) result.push({ position: i, value: str[i] });
+    }
+
+    return result;
 };
 
 //** Replace all hidden Cyrillic letters with equivalent Latin letters */
 export const fixCyrillic = (str: string): string => {
-    return [...str].map((value) => cyrillicLatinMap[value] ?? value).join("");
+    let fixedStr = "";
+
+    for (let i = 0; i < str.length; i++) {
+        fixedStr += cyrillicLatinMap[str[i]] ?? str[i];
+    }
+
+    return fixedStr;
 };
 
 //** Replace all hidden Latin letters with equivalent Cyrillic letters */
 export const fixLatin = (str: string): string => {
-    return [...str].map((value) => latinCyrillicMap[value] ?? value).join("");
+    let fixedStr = "";
+
+    for (let i = 0; i < str.length; i++) {
+        fixedStr += latinCyrillicMap[str[i]] ?? str[i];
+    }
+
+    return fixedStr;
 };
 
 export default { isHasCyrillic, isHasLatin, detectCyrillic, detectLatin, fixCyrillic, fixLatin };
