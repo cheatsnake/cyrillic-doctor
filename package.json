@@ -2,7 +2,7 @@
     "name": "cyrillic-doctor",
     "main": "main.js",
     "type": "module",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Node.js library for detecting and fixing hidden Cyrillic letters in Latin text or vice versa.",
     "keywords": [
         "cyrillic",
